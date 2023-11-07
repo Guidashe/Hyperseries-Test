@@ -1,4 +1,0 @@
-#Sat Oct 28 19:58:13 CEST 2023
-base.0=E\:\\Github E\\Test HyperSeries\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\launcher\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
