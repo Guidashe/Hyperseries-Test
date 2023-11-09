@@ -81,5 +81,23 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
         }
     }
 
+    public void OnPresButton()
+    {
+        Vector3 newLocation = pageLocation;
+
+        if (pageIndex == 1)
+        {
+            pageIndex = 2;
+            newLocation += new Vector3(-Screen.width, 0, 0);
+        }
+        else if(pageIndex == 2)
+        {
+            pageIndex = 1;
+            newLocation += new Vector3(Screen.width, 0, 0);
+        }
+        StartCoroutine(SmoothMove(transform.position, newLocation, easing));
+        pageLocation = newLocation;
+    }
+
 
 }
