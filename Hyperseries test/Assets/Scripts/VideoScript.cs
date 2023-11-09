@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +19,7 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private ChangeVideoTime _changeVideoTime;
     [SerializeField] private CanvasGroup _thumbsnail;
     [SerializeField] private CanvasGroup _readerCG;
+    [SerializeField] private TextMeshProUGUI _timeText;
 
     private RawImage _image;
     private bool _isPlay;
@@ -70,8 +72,14 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (!_changeVideoTime.m_isChanged)
         {
+            string timerString = "";
             _slider.maxValue = (float)_vPlayer.clip.length;
             _slider.value = (float)_vPlayer.clockTime;
+            if(_vPlayer.clip.length < 3600)
+                timerString = System.TimeSpan.FromSeconds(_slider.value).ToString("mm':'ss");
+            else
+                timerString = System.TimeSpan.FromSeconds(_slider.value).ToString("hh':'mm':'ss");
+            _timeText.text = timerString;
         }
         else
         {
