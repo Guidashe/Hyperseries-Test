@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 {
@@ -42,13 +43,13 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             float diffX = eventData.pressPosition.x - eventData.position.x;
             float diffY = eventData.pressPosition.y - eventData.position.y;
+            Vector3 newLocation = pageLocation;
 
             float percentageX = (eventData.pressPosition.y - eventData.position.x) / Screen.width;
             if (Mathf.Abs(diffX) > Mathf.Abs(diffY))
             {
                 if (Mathf.Abs(percentageX) >= percThold)
                 {
-                    Vector3 newLocation = pageLocation;
                     if (percentageX > 0 && pageIndex != pageNumber.Count)
                     {
                         pageIndex++;
@@ -66,6 +67,15 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
                 {
                     StartCoroutine(SmoothMove(transform.position, pageLocation, easing));
                 }
+            }
+            else
+            {              
+                if(diffY >0)
+                    StartCoroutine(SmoothMove(transform.position, pageLocation, easing));
+                if (diffY < Screen.height && pageIndex == 1)
+                    StartCoroutine(SmoothMove(transform.position, pageLocation, easing));
+
+                
             }
         }
     }
