@@ -25,8 +25,7 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private bool _isPlay;
     private Slider _slider;
     private bool _isEnter;
-
-    
+    private Camera _camera;
 
 
     private void Start()
@@ -34,6 +33,7 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _image = GetComponent<RawImage>();
         _slider = GetComponentInChildren<Slider>();
         _timeArea.gameObject.SetActive(false);
+        _camera = Camera.main;
     }
     public void OnPressButton()
     {
@@ -96,6 +96,11 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ShowVideo();
         StartCoroutine(TimerVideo());
         FadeUIHandler();
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Screen.fullScreen = false;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -106,5 +111,10 @@ public class VideoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         _isEnter = false;
+    }
+
+    public void OnFullScreen()
+    {
+
     }
 }
